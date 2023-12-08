@@ -1,0 +1,95 @@
+<html>
+<head>
+  <title>Unterrichtsplaner</title>
+  <!-- Einbinden von Bootstrap und jQuery -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <img style="border-radius: 10px;" src="EV-Schule-Spandau-Logo.png" width="250" height="80"></img>
+    <h1>Unterrichtsplaner</h1>
+    <p>Mit dieser Webseite können Sie Ihren Unterricht planen und das Ergebnis als Textdatei speichern.</p>
+    <form id="form">
+          <!-- Textfeld für den Namen des Lehrers -->
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" id="name" placeholder="Gib hier deinen Namen ein">
+      </div>
+      <!-- Textfeld für das Datum des Unterrichts -->
+      <div class="form-group">
+        <label for="date">Datum:</label>
+        <input type="date" class="form-control" id="date">
+      </div>
+      <!-- Textfeld für das Fach des Unterrichts -->
+      <div class="form-group">
+        <label for="subject">Fach:</label>
+        <input type="text" class="form-control" id="subject" placeholder="Gib hier das Fach ein">
+      </div>
+      <!-- Textfeld für die Klasse des Unterrichts -->
+      <div class="form-group">
+        <label for="class">Klasse:</label>
+        <input type="text" class="form-control" id="class" placeholder="Gib hier die Klasse ein">
+      </div>
+      <!-- Textfeld für die Lernziele des Unterrichts -->
+      <div class="form-group">
+        <label for="objectives">Lernziele:</label>
+        <textarea class="form-control" id="objectives" rows="3" placeholder="Gib hier die Lernziele ein"></textarea>
+      </div>
+      <!-- Textfeld für die Methoden des Unterrichts -->
+      <div class="form-group">
+        <label for="methods">Methoden:</label>
+        <textarea class="form-control" id="methods" rows="3" placeholder="Gib hier die Methoden ein"></textarea>
+      </div>
+      <!-- Textfeld für die Materialien des Unterrichts -->
+      <div class="form-group">
+        <label for="materials">Materialien:</label>
+        <textarea class="form-control" id="materials" rows="3" placeholder="Gib hier die Materialien ein"></textarea>
+      </div>
+      <!-- Button, um den Unterrichtsplan als PDF zu speichern -->
+      <button id="submit" type="submit" class="btn btn-primary">Speichern und herunterladen</button>
+    </form>
+  </div>
+
+  <!-- Hier füge das Skript ein, das die Daten in einer Textdatei speichert -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('submit').addEventListener('click', function() {
+        // Formulardaten abrufen
+        var name = document.getElementById('name').value;
+        var date = document.getElementById('date').value;
+        var subject = document.getElementById('subject').value;
+        var classValue = document.getElementById('class').value;
+        var objectives = document.getElementById('objectives').value;
+        var methods = document.getElementById('methods').value;
+        var materials = document.getElementById('materials').value;
+
+        // Text erstellen
+        var textContent = "Unterrichtsplan\n\n";
+        textContent += "Name: " + name + "\n";
+        textContent += "Datum: " + date + "\n";
+        textContent += "Fach: " + subject + "\n";
+        textContent += "Klasse: " + classValue + "\n";
+        textContent += "Lernziele: " + objectives + "\n";
+        textContent += "Methoden: " + methods + "\n";
+        textContent += "Materialien: " + materials + "\n";
+
+        // Blob erstellen
+        var blob = new Blob([textContent], { type: 'text/plain' });
+
+        // Dateinamen zusammenstellen (optional)
+        var fileName = 'Unterrichtsplan.txt';
+
+        // Datei speichern
+        var link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = fileName;
+
+        // Link klicken, um den Download zu starten
+        link.click();
+      });
+    });
+  </script>
+</body>
+</html>
